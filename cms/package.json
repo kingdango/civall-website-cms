@@ -1,6 +1,7 @@
 {
   "name": "civall-cms",
-  "version": "1.0.0",
+  "private": true,
+  "version": "0.1.0",
   "description": "CivAll Website CMS Backend",
   "scripts": {
     "develop": "strapi develop",
@@ -8,19 +9,22 @@
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "devDependencies": {
-    "@types/node": "^20.0.0",
-    "typescript": "^5.0.0"
-  },
   "dependencies": {
-    "@strapi/strapi": "^4.15.0",
-    "@strapi/plugin-users-permissions": "^4.15.0",
-    "@strapi/plugin-i18n": "^4.15.0",
-    "@strapi/plugin-cloud": "^4.15.0",
+    "@strapi/strapi": "4.25.8",
+    "@strapi/plugin-users-permissions": "4.25.8",
+    "@strapi/plugin-i18n": "4.25.8",
     "pg": "^8.11.3"
+  },
+  "devDependencies": {},
+  "author": {
+    "name": "CivAll Team"
+  },
+  "strapi": {
+    "uuid": "civall-cms-uuid"
   },
   "engines": {
     "node": ">=18.0.0 <=20.x.x",
     "npm": ">=6.0.0"
-  }
+  },
+  "license": "MIT"
 }
