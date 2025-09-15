@@ -4,28 +4,24 @@ echo "🚀 Setting up CivAll development environment..."
 
 # Wait for PostgreSQL to be ready
 echo "Waiting for PostgreSQL to start..."
-sleep 5
+for i in {1..30}; do
+    if pg_isready -h localhost -p 5432 -U postgres >/dev/null 2>&1; then
+        echo "PostgreSQL is ready!"
+        break
+    fi
+    echo "Waiting for PostgreSQL... ($i/30)"
+    sleep 1
+done
 
-# Create database
-psql -U postgres -h localhost -c "CREATE DATABASE civall;" 2>/dev/null || echo "Database may already exist"
+# Create database (it should already exist from docker-compose, but just in case)
+PGPASSWORD=postgres psql -U postgres -h localhost -c "CREATE DATABASE civall;" 2>/dev/null || echo "Database already exists"
 
 # Create project directories if they don't exist
 mkdir -p /workspaces/civall-website-cms/cms
 mkdir -p /workspaces/civall-website-cms/frontend
 
-# Check if Strapi is already initialized
-if [ ! -f "/workspaces/civall-website-cms/cms/package.json" ]; then
-    echo "📦 Initializing Strapi project..."
-    cd /workspaces/civall-website-cms/cms
-    npx create-strapi-app@latest . --quickstart --no-run --dbclient=postgres --dbhost=localhost --dbport=5432 --dbname=civall --dbusername=postgres --dbpassword=postgres --dbssl=false
-fi
-
-# Check if Next.js is already initialized
-if [ ! -f "/workspaces/civall-website-cms/frontend/package.json" ]; then
-    echo "📦 Initializing Next.js project..."
-    cd /workspaces/civall-website-cms/frontend
-    npx create-next-app@latest . --typescript --tailwind --app --no-src-dir --import-alias="@/*"
-fi
+# Note: package.json files already exist, so we skip initialization
+# The setup files are pre-configured in the repository
 
 # Install dependencies for Strapi
 echo "📦 Installing Strapi dependencies..."
