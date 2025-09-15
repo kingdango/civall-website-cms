@@ -1,0 +1,51 @@
+{
+  "name": "CivAll Website/CMS Development",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers-contrib/features/postgres-asdf:1": {
+      "version": "15"
+    },
+    "ghcr.io/devcontainers-contrib/features/redis-homebrew:1": {}
+  },
+
+  "forwardPorts": [
+    1337,
+    3000,
+    5432,
+    6379
+  ],
+
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "prisma.prisma",
+        "mtxr.sqltools",
+        "mtxr.sqltools-driver-pg"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+      }
+    }
+  },
+
+  "remoteEnv": {
+    "DATABASE_CLIENT": "postgres",
+    "DATABASE_HOST": "localhost",
+    "DATABASE_PORT": "5432",
+    "DATABASE_NAME": "civall",
+    "DATABASE_USERNAME": "postgres",
+    "DATABASE_PASSWORD": "postgres",
+    "JWT_SECRET": "development-secret-change-in-production",
+    "ADMIN_JWT_SECRET": "admin-development-secret-change-in-production",
+    "NODE_ENV": "development"
+  }
+}
