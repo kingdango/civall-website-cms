@@ -1,20 +1,13 @@
 {
   "name": "CivAll Website/CMS Development",
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
-
-  "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    "ghcr.io/devcontainers-contrib/features/postgres-asdf:1": {
-      "version": "15"
-    },
-    "ghcr.io/devcontainers-contrib/features/redis-homebrew:1": {}
-  },
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/civall-website-cms",
 
   "forwardPorts": [
     1337,
     3000,
-    5432,
-    6379
+    5432
   ],
 
   "postCreateCommand": "bash .devcontainer/setup.sh",
@@ -35,17 +28,5 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
       }
     }
-  },
-
-  "remoteEnv": {
-    "DATABASE_CLIENT": "postgres",
-    "DATABASE_HOST": "localhost",
-    "DATABASE_PORT": "5432",
-    "DATABASE_NAME": "civall",
-    "DATABASE_USERNAME": "postgres",
-    "DATABASE_PASSWORD": "postgres",
-    "JWT_SECRET": "development-secret-change-in-production",
-    "ADMIN_JWT_SECRET": "admin-development-secret-change-in-production",
-    "NODE_ENV": "development"
   }
 }
